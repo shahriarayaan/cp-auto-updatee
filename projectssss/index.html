@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CP Practice & Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">⚡ CP Tracker</div>
+            <ul class="nav-links">
+                <li><a class="nav-link active" onclick="switchPage('landing')">Home</a></li>
+                <li><a class="nav-link" onclick="switchPage('contest')">Contest</a></li>
+                <li><a class="nav-link" onclick="switchPage('result')">Result</a></li>
+                <li><a class="nav-link" onclick="switchPage('profile')">Profile</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="main-container">
+        
+        <!-- Landing Page -->
+        <section id="landing" class="page active">
+            <div class="hero">
+                <h1>Track Your Codeforces Growth</h1>
+                <p>Solve daily curated problems, build your streak, and jump up the global leaderboard automatically using CF API integration.</p>
+                <button class="btn" onclick="switchPage('contest')">Start Practicing</button>
+            </div>
+            <div class="card">
+                <h3>Set Your Codeforces Handle First</h3>
+                <p style="color: var(--text-muted); margin-bottom: 1rem;">Enter your handle. It will sync your score live across all users on the Leaderboard!</p>
+                <div style="display: flex; gap: 0.5rem; max-width: 400px;">
+                    <input type="text" id="cf-handle-input" placeholder="e.g. Tourist">
+                    <button class="btn" onclick="saveHandle()">Save Handle</button>
+                </div>
+                <p id="handle-status" style="margin-top: 0.5rem; font-weight: 600; color: var(--primary-green);"></p>
+            </div>
+        </section>
+
+        <!-- Contest Page -->
+        <section id="contest" class="page">
+            <h2 style="margin-bottom: 1rem;">Daily Practice Problems</h2>
+            <div class="problem-list" id="problem-container">
+                <!-- Dynamic Content via JS -->
+            </div>
+        </section>
+
+        <!-- Result / Leaderboard Page -->
+        <section id="result" class="page">
+            <h2 style="margin-bottom: 1rem;">Global Live Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>User Handle</th>
+                        <th>Solved Count</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- Dynamic Content via Firebase -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Profile Page -->
+        <section id="profile" class="page">
+            <h2 style="margin-bottom: 1rem;">Your Profile</h2>
+            <div class="grid-2" style="margin-bottom: 1.5rem;">
+                <div class="stat-box">
+                    <p style="color: var(--text-muted);">Current Rank</p>
+                    <h3 id="user-rank">#--</h3>
+                </div>
+                <div class="stat-box">
+                    <p style="color: var(--text-muted);">Daily Solved Counter</p>
+                    <h3 id="user-solved">0</h3>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Pending Problems</h3>
+                <div class="problem-list" id="pending-list" style="margin-top: 1rem;">
+                    <!-- Pending Items Listed Here -->
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Contact Admin Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h3>Not Solved Yet!</h3>
+            <p>Our API scan couldn't find an "Accepted" verdict for this problem under your handle. If you're stuck, reach out to the admin via WhatsApp.</p>
+            
+            <div style="background-color: var(--light-green); padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1.25rem; font-weight: 600; color: var(--primary-green); font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                💬 WhatsApp: <span style="letter-spacing: 0.5px;">+880 1XXXXXXXXX</span>
+            </div>
+
+            <div style="display: flex; justify-content: center;">
+                <button class="btn btn-outline" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
